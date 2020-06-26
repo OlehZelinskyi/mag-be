@@ -7,7 +7,7 @@ export default class MessageService {
   static async sendMessage(data) {
     try {
       const { name, msg, email, phone } = data;
-      new EmailService.Builder(process.env.MAIL_USERNAME)
+      const response = new EmailService.Builder(process.env.MAIL_USERNAME)
         .setReceiver(email)
         .setHTML(
           `
@@ -20,6 +20,8 @@ export default class MessageService {
         )
         .setSubject("Internal Message")
         .build();
+
+      return response;
     } catch (error) {
       return error;
     }

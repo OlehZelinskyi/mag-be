@@ -6,17 +6,13 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --experimental-modules ./server/index.js"
+    "start": "nodemon --experimental-modules -r esm ./server/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "^7.10.3",
-    "@babel/core": "^7.10.3",
-    "@babel/node": "^7.10.3",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-register": "^6.26.0",
+    "esm": "^3.2.25",
     "nodemon": "^2.0.4"
   },
   "dependencies": {

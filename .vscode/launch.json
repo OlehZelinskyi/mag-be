@@ -7,11 +7,10 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Node Debugger",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/server/index.js",
-      "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/babel-node",
-      "args": ["--require", "reify"]
+      "runtimeArgs": ["-r", "esm"]
     }
   ]
 }

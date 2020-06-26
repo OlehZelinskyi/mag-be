@@ -7,7 +7,7 @@ export default class Email {
   constructor(build) {
     this.sender = build.sender;
     this.receiver = build.receiver;
-    this.link = build.link;
+    this.response = build.response;
     this.subject = build.subject;
   }
 
@@ -41,6 +41,10 @@ export default class Email {
         };
       }
 
+      setResponse(data) {
+        this.response = data;
+      }
+
       async build() {
         if (!this.sender) {
           this.sender = process.env.FALLBACKMAIL;
@@ -61,7 +65,7 @@ export default class Email {
           this.html
         );
 
-        const transporter = nodemailer.createTransport({
+        const transporter = await nodemailer.createTransport({
           service: process.env.MAIL_SERVICE,
           auth: {
             user: process.env.MAIL_USERNAME,
@@ -69,13 +73,8 @@ export default class Email {
           },
         });
 
-        transporter.sendMail(mailOptions, (err, info) => {
-          if (err) {
-            console.error(err);
-          } else {
-            console.log(info);
-          }
-        });
+        const info = await transporter.sendMail(mailOptions);
+        await this.setResponse(info);
 
         return new Email(this);
       }
